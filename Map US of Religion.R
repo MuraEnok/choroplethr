@@ -8,14 +8,15 @@ library(gridExtra)
 library(ggplot2)
 # get the data for the 2010 religious census for US. as a stata file and use foreign to read as data.frame
 #http://www.thearda.com/download/download.aspx?file=U.S.%20Religion%20Cens
-url = "http://www.thearda.com/download/download.aspx?file=U.S.%20Religion%20Census%20Religious%20Congregations%20and%20Membership%20Study,%202010%20(County%20File).DTA"
-relig <- read.dta(url)
- # 503) SBCCNG
- # 13 CATHCNG
+#url = "http://www.thearda.com/download/download.aspx?file=U.S.%20Religion%20Census%20Religious%20Congregations%20and%20Membership%20Study,%202010%20(County%20File).DTA"
+#relig <- read.dta(url)
+
+# the web link is broken so uploaded the file as a csv to data file
+relig <- read.csv("data/religious_census.csv", header=TRUE, sep=",", as.is=TRUE)
 # this data grabs the total count for orthodox church definitions found in religion.TXT
 # orthodox <- c(16, 17, 18, 562, 563, 564, 565, 566, 567, 568)
-orthodox <- c(16, 562, 564)
-catholic <- c(13, 562, 564)
+orthodox <- c(17, 563, 565)
+catholic <- c(14, 563, 565)
 
 #trim the data to exclude Hawai and Alaska
 relig <- subset(relig, !(relig$stabbr %in% c("AK", "HI")))
