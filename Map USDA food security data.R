@@ -13,7 +13,7 @@ loc
 # [10] "Supplemental Data - County.csv" [11] "Supplemental Data - State.csv"  [12] "Variable_List.csv" 
 
 # choose a number to get the file [ place num here]
-file.name = loc[4]
+file.name = loc[9]
  
 base = "Data/food/"
 name = paste0(base, file.name, sep="")
