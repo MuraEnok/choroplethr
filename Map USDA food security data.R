@@ -23,7 +23,7 @@ Var.Code = "PCT_LACCESS_LOWI10"
 vl = paste0(base, loc[12], sep="")
 
 var.list <- read.csv(vl, sep=",", as.is=TRUE, header=TRUE)                      
-var.list = subset(var.list, Category.Code == "ASSISTANCE")
+var.list = subset(var.list, Category.Code == toupper(gsub(".csv", '', file.name)))
 
 # place the df to map here
 df = file
@@ -32,4 +32,6 @@ df = df[, c(Var.Code, "FIPS")]
 names(df) = c ("value", "region")
 
 choroplethr(df, "county")
+
+  
 
