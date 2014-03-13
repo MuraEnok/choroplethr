@@ -13,7 +13,7 @@ loc
 # [10] "Supplemental Data - County.csv" [11] "Supplemental Data - State.csv"  [12] "Variable_List.csv" 
 
 # choose a number to get the file [ place num here]
-file.name = loc[9]
+file.name = loc[5]
  
 base = "Data/food/"
 name = paste0(base, file.name, sep="")
@@ -32,7 +32,7 @@ View.Code
 
 # place the number of field to map for category and place in [X] this uses this group to create map
 num = 8
-Var.Code = as.character(Var.Code[8])
+Var.Code = as.character(Var.Code[7])
 
 # place the df to map here
 df = file
