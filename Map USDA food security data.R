@@ -1,7 +1,8 @@
 # Food Insecurity map US counties from USDA.  Fast way to view maps of data to visually reconize what is occurring.
 # this is easy way to create maps using ggplot2
 library(choroplethr)
-
+library(gridExtra)
+library(ggplot2)
 # data found http://www.ers.usda.gov/datafiles/Food_Environment_Atlas/Data_Access_and_Documentation_Downloads/Current_Version/DataDownload.xls
 # excel file saved as csv files, one for each tab and in data folder
 loc = dir("Data/food/")
@@ -28,12 +29,12 @@ Var.Code = as.list(paste( var.list$Variable.Code))
 # This prints out as view.code the list of categories available to map 
 View.Code = as.list(paste( var.list$Variable.Name))
 View.Code
-
+# stop here and view what sub dataset you like
 
 # place the number of field to map for category and place in [X] this uses this group to create map
 num = 8
 Var.Code = as.character(Var.Code[7])
-
+title.map = paste(View.Code[7], sep='')
 # place the df to map here
 df = file
 # grab the variable from 
@@ -41,7 +42,12 @@ df = df[, c(Var.Code, "FIPS")]
 names(df) = c("value", "region")
 
 # Create map using choroplethr function
-choroplethr(df, "county")
+farm = choroplethr(df, "county", title=title.map)
+
+per_cap = choroplethr(income, "county", title="Farm Income 2012")
+
+
+grid.arrange(farm, per_cap, nrow=1, ncol=2)
 
   
 
