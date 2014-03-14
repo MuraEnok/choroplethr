@@ -7,8 +7,8 @@ library(ggplot2)
 # https://www.bea.gov/regional/downloadzip.cfm
 loc = dir("/Users/ak/Data/BEA/CA91/", pattern=".csv")
 # remove strange files Use for CA04 not other folders
-loc = loc[- c(1, 7,  13, 23,  26, 30, 44, 50)]
-
+# loc = loc[- c(1, 7,  13, 23,  26, 30, 44, 50)]
+# get all the BEA local files and put into a directory called data
 base <- "/Users/ak/Data/BEA/CA91/" 
 files <- lapply(loc, function(.state){ 
   cat(.state, "\n") 
@@ -43,7 +43,7 @@ cat.year = paste(names(df)[8:length(names(df))])
 cat.view = paste(seq(8:length(names(df))),names(df)[8:length(names(df))], sep=" : ")
 cat.view
 
-cat = 1            # Put the index for category titles here see console for choices
+cat = 3            # Put the index for category titles here see console for choices
 # Place index number here for year
 yr = 23             # put the year from cat.year view in index <-
 
@@ -58,9 +58,9 @@ df <- subset(df, LineTitle == line)[, c("FIPS", cat.year )]
 df$region <- as.numeric(df$FIPS)
 df$value <- as.numeric(df[,2])
 
-# choroplethr(df, "county", title= title.var)
-grid.arrange(inflow, outflow, nrow=1, ncol=2)
-outflow <- choroplethr(df, "county", title= title.var)
-inflow <- choroplethr(df, "county", title= title.var)
+choroplethr(df, "county", title= title.var)
+# grid.arrange(inflow, outflow, nrow=1, ncol=2)
+# outflow <- choroplethr(df, "county", title= title.var)
+# inflow <- choroplethr(df, "county", title= title.var)
 
 
