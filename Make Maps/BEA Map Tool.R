@@ -5,11 +5,11 @@ library(ggplot2)
 
 # get bear facts files into a datatable for all counties
 # https://www.bea.gov/regional/downloadzip.cfm
-loc = dir("/Users/ak/Data/BEA/CA91/", pattern=".csv")
+loc = dir("Data/BEA/CA91/", pattern=".csv")
 # remove strange files Use for CA04 not other folders
 # loc = loc[- c(1, 7,  13, 23,  26, 30, 44, 50)]
 # get all the BEA local files and put into a directory called data 2 choices CA04 and CA91
-base <- "/Users/ak/Data/BEA/CA91/" 
+base <- "Data/BEA/CA91/" 
 files <- lapply(loc, function(.state){ 
   cat(.state, "\n") 
   input <- read.csv(paste0(base, .state)
