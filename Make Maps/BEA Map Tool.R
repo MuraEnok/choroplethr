@@ -8,7 +8,7 @@ library(ggplot2)
 loc = dir("/Users/ak/Data/BEA/CA91/", pattern=".csv")
 # remove strange files Use for CA04 not other folders
 # loc = loc[- c(1, 7,  13, 23,  26, 30, 44, 50)]
-# get all the BEA local files and put into a directory called data
+# get all the BEA local files and put into a directory called data 2 choices CA04 and CA91
 base <- "/Users/ak/Data/BEA/CA91/" 
 files <- lapply(loc, function(.state){ 
   cat(.state, "\n") 
@@ -41,8 +41,10 @@ cat.var
 # get year
 cat.year = paste(names(df)[8:length(names(df))])
 cat.view = paste(seq(8:length(names(df))),names(df)[8:length(names(df))], sep=" : ")
-cat.view
-
+cat.view 
+################################################################################################
+# view the choices in the Console of what groups you would like to map
+# put choices below
 cat = 3            # Put the index for category titles here see console for choices
 # Place index number here for year
 yr = 23             # put the year from cat.year view in index <-
@@ -51,14 +53,18 @@ yr = 23             # put the year from cat.year view in index <-
 # use the index to subset the mapping category and grab title
 line = paste(cat.var[cat])
 title.var = paste(line)
-# subset farm income
+
+# subset dataset based on year and category
 cat.year = paste(cat.year[yr])
 df <- subset(df, LineTitle == line)[, c("FIPS", cat.year )]
 
 df$region <- as.numeric(df$FIPS)
 df$value <- as.numeric(df[,2])
 
+#this creates map
 choroplethr(df, "county", title= title.var)
+
+# for comparison maps use code below. 
 # grid.arrange(inflow, outflow, nrow=1, ncol=2)
 # outflow <- choroplethr(df, "county", title= title.var)
 # inflow <- choroplethr(df, "county", title= title.var)
