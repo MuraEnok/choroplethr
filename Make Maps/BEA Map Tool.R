@@ -5,11 +5,11 @@ library(ggplot2)
 
 # get bear facts files into a datatable for all counties
 # https://www.bea.gov/regional/downloadzip.cfm
-loc = dir("Data/BEA/CA91/", pattern=".csv")
+loc = dir("/Users/ak/Data/BEA/CA91/", pattern=".csv")
 # remove strange files Use for CA04 not other folders
 # loc = loc[- c(1, 7,  13, 23,  26, 30, 44, 50)]
 # get all the BEA local files and put into a directory called data 2 choices CA04 and CA91
-base <- "Data/BEA/CA91/" 
+base <- "/Users/ak/Data/BEA/CA91/" 
 files <- lapply(loc, function(.state){ 
   cat(.state, "\n") 
   input <- read.csv(paste0(base, .state)
@@ -23,14 +23,14 @@ files <- lapply(loc, function(.state){
 })
 # this creates the data table for the set
 CA04 <- do.call(rbind, files)
-rm(x)
-rm(files)
+
 
 
 x <- names(read.csv(paste0(base, loc[3]), sep=",", header=TRUE, as.is=TRUE))
 names(CA04) <- x
 df <- CA04[-1,]
-
+rm(x)
+rm(files)
 
 trim.leading <- function (x)  sub("^\\s+", "", x)
 df$LineTitle <- trim.leading(df$LineTitle)
@@ -45,7 +45,7 @@ cat.view
 ################################################################################################
 # view the choices in the Console of what groups you would like to map
 # put choices below
-cat = 3            # Put the index for category titles here see console for choices
+cat = 2            # Put the index for category titles here see console for choices
 # Place index number here for year
 yr = 23             # put the year from cat.year view in index <-
 
@@ -59,10 +59,12 @@ cat.year = paste(cat.year[yr])
 df <- subset(df, LineTitle == line)[, c("FIPS", cat.year )]
 
 df$region <- as.numeric(df$FIPS)
-df$value <- as.numeric(df[,2])
+df$value <-  as.numeric(df[,2])
 
+# subset for a region
+inland_nw = c("WA", "OR", "ID", "MT", "WY")
 #this creates map
-choroplethr(df, "county", title= title.var)
+choroplethr(df, "county", title= title.var, states= inland_nw, num_buckets=8)
 
 # for comparison maps use code below. 
 # grid.arrange(inflow, outflow, nrow=1, ncol=2)

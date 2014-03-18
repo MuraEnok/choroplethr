@@ -42,7 +42,7 @@ df = df[, c(Var.Code, "FIPS")]
 names(df) = c("value", "region")
 
 # Create map using choroplethr function
-farm = choroplethr(df, "county", title=title.map)
+farm = choroplethr(df, "county", title=title.map, states=inland_nw)
 
 per_cap = choroplethr(income, "county", title="Farm Income 2012")
 
