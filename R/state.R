@@ -28,6 +28,9 @@ bind_df_to_state_map = function(df)
 
 render_state_choropleth = function(choropleth.df, title="", scaleName="", showLabels=TRUE, states=state.abb)
 {
+  # only show the states the user asked
+  choropleth.df = choropleth.df[choropleth.df$region %in% normalize_state_names(states), ]
+  
   # maps with numeric values are mapped with a continuous scale
   if (is.numeric(choropleth.df$value))
   {
@@ -36,17 +39,15 @@ render_state_choropleth = function(choropleth.df, title="", scaleName="", showLa
                      scale_fill_continuous(scaleName, labels=comma) + # use a continuous scale
                      ggtitle(title) +
                      theme_clean();
-  } else if (is.factor(choropleth.df$value)) {
-    stopifnot(length(levels(choropleth.df$value)) <= 9) # brewer scale only goes up to 9
+  } else { # assume character or factor
+    stopifnot(length(unique(choropleth.df$value)) <= 9) # brewer scale only goes up to 9
 
     choropleth = ggplot(choropleth.df, aes(long, lat, group = group)) +
                      geom_polygon(aes(fill = value), color = "dark grey", size = 0.2) + 
                      scale_fill_brewer(scaleName, labels=comma) + # use discrete scale for buckets
                      ggtitle(title) +
                      theme_clean();
-  } else {
-    stop("value needs to be numeric or factor")
-  }
+  } 
 
   if (showLabels) {
       df_state_labels = data.frame(long = state.center$x, lat = state.center$y, label = state.abb)
@@ -66,8 +67,8 @@ state_choropleth_auto = function(df,
                             states = state.abb)
 {
   choropleth.df = bind_df_to_state_map(df)
-  if (num_buckets > 1) {
+  if (is.numeric(choropleth.df$value) && num_buckets > 1) {
     choropleth.df$value = discretize_values(choropleth.df$value, num_buckets)
   }
-  render_state_choropleth(choropleth.df, title="", scaleName="", showLabels = TRUE)
+  render_state_choropleth(choropleth.df, title, scaleName, showLabels, states)
 }
