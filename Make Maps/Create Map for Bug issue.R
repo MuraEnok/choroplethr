@@ -2,9 +2,6 @@
 # get data source
 
 library(choroplethr)
+# df <- paste df.txt here
 
-
-
-df <- read.csv("df.csv", sep=",", header=TRUE, as.is=TRUE)
-
-choroplethr(df, "county", title= title.var, num_buckets=8)
+choroplethr(df, "county", title= "this is a test", num_buckets=8)

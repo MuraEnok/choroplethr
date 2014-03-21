@@ -32,7 +32,6 @@ View.Code
 # stop here and view what sub dataset you like
 
 # place the number of field to map for category and place in [X] this uses this group to create map
-num = 8
 Var.Code = as.character(Var.Code[7])
 title.map = paste(View.Code[7], sep='')
 # place the df to map here
@@ -41,13 +40,16 @@ df = file
 df = df[, c(Var.Code, "FIPS")]
 names(df) = c("value", "region")
 
+inland_nw = c("WA", "OR", "ID", "MT", "WY")
+# choroplethr(df, "county", title=title.map, states= inland_nw)
+
 # Create map using choroplethr function
-farm = choroplethr(df, "county", title=title.map, states=inland_nw)
+farmers_market = choroplethr(df, "county", title=title.map, states=inland_nw)
 
-per_cap = choroplethr(income, "county", title="Farm Income 2012")
+source('~/Dev/r/choroplethr/Make Maps/BEA Map Tool farm income.R')
+farm_income <- choroplethr(df, "county", title= title.var, states= inland_nw, num_buckets=8)
 
-
-grid.arrange(farm, per_cap, nrow=1, ncol=2)
+grid.arrange(farmers_market, farm_income, nrow=1, ncol=2)
 
   
 

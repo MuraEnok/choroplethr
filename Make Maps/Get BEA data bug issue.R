@@ -1,8 +1,12 @@
+library(devtools)
+install_github("choroplethr", "trulia")
 library(choroplethr)
 
 # download from https://www.bea.gov/regional/downloadzip.cfm a file in 
 # the Local Area Personal Income accounts called CA91: gross commuters' earnings flows
 unzip("data/BEA/CA91.zip")
+
+c <- read.table("df.txt")
 # get bear facts files into a datatable for all counties
 # https://www.bea.gov/regional/downloadzip.cfm
 loc = dir("CA91/", pattern=".csv")
@@ -48,5 +52,5 @@ df <- df[,3:4]
 # subset for a region
 inland_nw = c("WA", "OR", "ID", "MT", "WY")
 #this creates map
-choroplethr(df, "county", title= title.var, states= inland_nw, num_buckets=8)
+choroplethr(df, "county", states= inland_nw, num_buckets=8)
 
