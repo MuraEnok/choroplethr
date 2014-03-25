@@ -59,7 +59,7 @@ render_county_choropleth = function(choropleth.df, title="", scaleName="", state
       geom_polygon(data = state.df, color = "black", fill = NA, size = 0.2) +
       scale_fill_continuous(scaleName, labels=comma) + # use a continuous scale
       ggtitle(title) +
-      theme_clean();
+      theme_clean() ;
   } else { # assume character or factor
     stopifnot(length(unique(choropleth.df$value)) <= 9) # brewer scale only goes up to 9
 
